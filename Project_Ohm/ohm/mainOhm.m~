@@ -1,0 +1,247 @@
+% Project: OHM
+% Author: Alan A. Diaz-Montiel, Ivan Barranco, Waltercesar Ponce
+% Affiliation: CETYS Universidad
+% Date: May 2016
+
+% In order to run first check that the Java version of the system matches
+% MATLAB Java's version.
+
+% clear Command Window
+clc; clear;
+
+% declare the dynamic path to access to Java classes
+javaaddpath('/Users/adiaz/Documents/Programs/Matlab/JavaClassesMatlab/jarcolors.jar');
+
+testList = javaObject('ResistorList'); % list to store the colors detected
+
+% Read image
+rgb=imread('220ohm.jpg');
+% Show image
+imshow(rgb); %% DISPLAY 1
+% Convert rgb to 20-color-indexed image
+[x,map]= rgb2ind(rgb,20,'nodither');
+%figure, imshow(x,map);
+imagen=ind2rgb(x,map);
+% imtool(imagen);
+
+% 0 - Black Color
+% Match black parameters from image
+blackImage=ColorBandIdentifier(rgb,[0.38 0.40 0.15 0.17 0.08 0.1]); %resistor1.jpg
+% inverts black and white colors
+blackImage = imcomplement(blackImage);
+% crop borders
+%negro=imcrop(negro,[2 2 230 212]); % resistor1.jpg
+blackImage = imcrop(blackImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches black color
+blackLabel = bwlabel(blackImage,8);
+%imtool(labelnegro)
+blackCentroid = regionprops(blackLabel,'Centroid');
+blackCentre=cat(1,blackCentroid.Centroid);
+emptyCentre = isempty(blackCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = blackCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        blackColor = javaObject('Color',0,color); % black color
+        testList.insert(blackColor);
+    end
+    figure, imshow(blackImage)
+    hold on
+    plot(blackCentre(1,1),blackCentre(1,2),'X')
+    title('Black')
+    hold off
+end
+
+% 1 - Brown Color
+%cafe=ColorBandIdentifier(rgb,[0.22 0.24 0.13 0.15 0.07 0.09]); %resistor1.jpg
+% Match brown parameters from image
+brownImage=ColorBandIdentifier(imagen,[0.46 0.48 0.22 0.24 0.17 0.19]); % 220ohm
+% inverts black and white colors
+brownImage = imcomplement(brownImage);
+%cafe=imcrop(cafe,[2 2 230 212]); % resistor1.jpg
+% crop borders
+brownImage=imcrop(brownImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches brown color
+brownLabel = bwlabel(brownImage,8);
+brownCentroid = regionprops(brownLabel,'Centroid');
+brownCentre=cat(1,brownCentroid.Centroid);
+emptyCentre = isempty(brownCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = brownCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        brownColor = javaObject('Color',1,color); % brown color
+        testList.insert(brownColor);
+    end
+    figure, imshow(brownImage)
+    hold on
+    plot(brownCentre(1,1),brownCentre(1,2),'X')
+    title('Brown')
+    hold off
+end
+
+
+% 2 - Red Color
+% Match red parameters from image
+redImage=ColorBandIdentifier(rgb,[0.80 0.82 0.22 0.24 0.22 0.24]); % 220ohm
+% inverts black and white colors
+redImage = imcomplement(redImage);
+% crop borders
+redImage=imcrop(redImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches red color
+redLabel = bwlabel(redImage,8);
+redCentroid = regionprops(redLabel,'Centroid');
+redCentre=cat(1,redCentroid.Centroid);
+emptyCentre = isempty(redCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = redCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        redColor = javaObject('Color',2,color); % rojo color
+        testList.insert(redColor);
+    end
+    figure, imshow(redImage)
+    hold on
+    plot(redCentre(1,1),redCentre(1,2),'X')
+    title('Red')
+    hold off
+end
+
+
+
+% 3 - Orange Color
+% Match orange parameters from image
+orangeImage=ColorBandIdentifier(rgb,[0.80 0.82 0.22 0.24 0.22 0.24]); % 220ohm
+% inverts black and white colors
+orangeImage = imcomplement(orangeImage);
+% crop borders
+orangeImage=imcrop(orangeImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches orange color
+orangeLabel = bwlabel(orangeImage,8);
+orangeCentroid = regionprops(orangeLabel,'Centroid');
+orangeCentre=cat(1,orangeCentroid.Centroid);
+emptyCentre = isempty(orangeCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = orangeCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        orangeColor = javaObject('Color',3,color); % orange color
+        testList.insert(orangeColor);
+    end
+    figure, imshow(orangeImage)
+    hold on
+    plot(orangeCentre(1,1),orangeCentre(1,2),'X')
+    title('Orange')
+    hold off
+end
+
+
+% 4 - Yellow Color
+% Match yellow parameters from image
+yellowImage=ColorBandIdentifier(rgb,[0.80 0.82 0.22 0.24 0.22 0.24]); % 220ohm
+% inverts black and white colors
+yellowImage = imcomplement(yellowImage);
+% crop borders
+yellowImage=imcrop(yellowImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches yellow color
+yellowLabel = bwlabel(yellowImage,8);
+yellowCentroid = regionprops(yellowLabel,'Centroid');
+yellowCentre=cat(1,yellowCentroid.Centroid);
+emptyCentre = isempty(yellowCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = yellowCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        yellowColor = javaObject('Color',4,color); % yellow color
+        testList.insert(yellowColor);
+    end
+    figure, imshow(yellowImage)
+    hold on
+    plot(yellowCentre(1,1),yellowCentre(1,2),'X')
+    title('Yellow')
+    hold off
+end
+
+
+
+% 5 - Green Color
+% Match green parameters from image
+greenImage=ColorBandIdentifier(rgb,[0.22 0.24 0.24 0.26 0.14 0.16]); %resistor1.jpg
+% inverts black and white colors
+greenImage = imcomplement(greenImage);
+% crop borders
+%verde=imcrop(verde,[2 2 230 212]); % resistor1.jpg
+greenImage=imcrop(greenImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches green color
+greenLabel = bwlabel(greenImage,8);
+%imtool(labelverde)
+greenCentroid = regionprops(greenLabel,'Centroid');
+greenCentre=cat(1,greenCentroid.Centroid);
+emptyCentre = isempty(greenCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = greenCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        greenColor = javaObject('Color',5,color); % green color
+        testList.insert(greenColor);
+    end
+    figure, imshow(greenImage)
+    hold on
+    plot(greenCentre(1,1),greenCentre(1,2),'X')
+    title('Green')
+    hold off
+end
+
+
+
+% 6 - Blue Color
+% Match blue parameters from image
+blueImage=ColorBandIdentifier(rgb,[0.22 0.24 0.24 0.26 0.14 0.16]); %resistor1.jpg
+% inverts black and white colors
+blueImage = imcomplement(greenImage);
+% crop borders
+greenImage=imcrop(greenImage,[10 10 610 220]); % 220ohm.jpg
+% assign labels to each object in the image that matches blue color
+greenLabel = bwlabel(greenImage,8);
+%imtool(labelverde)
+greenCentroid = regionprops(greenLabel,'Centroid');
+greenCentre=cat(1,greenCentroid.Centroid);
+emptyCentre = isempty(greenCentre);
+% checks if a color was found
+if emptyCentre == 0
+    xElements = greenCentre(':',1);
+    for x =1:length(xElements)
+        color = xElements(x,':'); % x value of color
+        greenColor = javaObject('Color',5,color); % blue color
+        testList.insert(greenColor);
+    end
+    figure, imshow(greenImage)
+    hold on
+    plot(greenCentre(1,1),greenCentre(1,2),'X')
+    title('Green')
+    hold off
+end
+
+
+
+% Read list
+testList.readList();
+
+
+% get the head of the list in order to sort it
+% in ascending order
+headColor = javaObject('Color');
+headColor = testList.getHead();
+
+% apply the mergesort algorithm to sort in increasing order
+testList.mergeSortLinkList(headColor);
+fprintf(1, '\n');
+
+% show the list ordered
+testList.readList();
